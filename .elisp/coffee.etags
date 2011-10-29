@@ -1,1 +1,6 @@
-/home/fmdkdd/.elisp/coffee.etags
+--langdef=coffee
+--langmap=coffee:.coffee
+--regex-coffee=/\bclass\b +(\w+)/\1/c,classes/
+--regex-coffee=/^[\t ]*(\w+): *\(.*\) +->/\1/m,methods/
+--regex-coffee=/\b(\w+)\b *= *\(.*\) +(->|=>)/\1/f,functions/
+--regex-coffee=/^[\t ]*'?(\w+)'?: *[^( ]/\1/p,properties/
