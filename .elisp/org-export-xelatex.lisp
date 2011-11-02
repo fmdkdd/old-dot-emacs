@@ -15,6 +15,9 @@
   ;; xelatex -> .pdf
   (if (string-match "LATEX_CMD: xelatex" (buffer-string))
 		(setq texcmd "latexmk -pdflatex=xelatex -pdf -quiet %f"))
+  ;; lualatex -> .pdf
+  (if (string-match "LATEX_CMD: lualatex" (buffer-string))
+		(setq texcmd "latexmk -pdflatex=lualatex -pdf -quiet %f"))
   ;; LaTeX compilation command
   (setq org-latex-to-pdf-process (list texcmd)))
 
@@ -49,6 +52,17 @@
 				'(("" "fontspec" t)
 				  ("" "xunicode" t)
 				  ("" "xltxtra" t)
+				  ("" "rotating" t)
+				  ("french" "babel" t)
+				  ("babel" "csquotes" t)
+				  ("" "soul" t)
+				  )))
+
+    ;; Packages to include when lualatex is used
+  (if (string-match "LATEX_CMD: lualatex" (buffer-string))
+		(setq org-export-latex-default-packages-alist
+				'(("" "fontspec" t)
+				  ("" "luatextra" t)
 				  ("" "rotating" t)
 				  ("french" "babel" t)
 				  ("babel" "csquotes" t)
