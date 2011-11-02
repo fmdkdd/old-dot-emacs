@@ -334,7 +334,7 @@ Symbols matching the text at point are put first in the completion list."
 ;; Coding modes
 
 ;; Default javascript mode.
-(setq js-indent-level 3)
+(setq js-indent-level tab-width)
 
 ;; Coffee mode for CoffeeScript
 (add-to-list 'load-path "~/.elisp/coffee-mode")
