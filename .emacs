@@ -89,6 +89,12 @@
 ;; Grab URL contents and open in a new buffer
 (global-set-key (kbd "C-c u") 'view-url-in-buffer)
 
+;; Quick open Gnus
+(global-set-key (kbd "C-c m") 'gnus)
+
+;; Connect to Bitlbee
+(global-set-key (kbd "C-c t") 'bitlbee-connect)
+
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;; Editing
 
