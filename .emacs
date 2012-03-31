@@ -406,13 +406,15 @@ Symbols matching the text at point are put first in the completion list."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(browse-url-browser-function (quote browse-url-generic))
- '(browse-url-generic-program "firefox")
+ '(browse-url-generic-program "firefox-trunk")
  '(erc-modules (quote (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services stamp track)))
- '(python-python-command "python3")
+ '(org-agenda-files (quote ("~/Archimède/org/dates.org")))
+ '(python-python-command "python")
  '(safe-local-variable-values (quote ((ispell-local-dictionary . francais)))))
 
 (setq calendar-week-start-day 1)
 (put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;; Printing
