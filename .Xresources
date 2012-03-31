@@ -3,9 +3,6 @@ Emacs.font: Ubuntu Mono-12
 Emacs.ToolBar: off
 Emacs.MenuBar: off
 Emacs.verticalScrollBars: off
-
-! Zenburn color theme doesn't correctly set the background color for
-! borders when Emacs start up.
 Emacs.background: #3f3f3f
 
 Xft.dpi: 96
