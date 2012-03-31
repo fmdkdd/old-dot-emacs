@@ -368,9 +368,15 @@ Symbols matching the text at point are put first in the completion list."
 
 ;; Haskell
 (add-hook 'haskell-mode-hook 'turn-on-haskell)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
 ;; Load MIT/GNU Scheme mode.
 (load "~/.elisp/xscheme.elc")
+
+;; Scala mode from latest distribution
+(add-to-list 'load-path "~/Archimède/Univ/Cours/MIS9/mobile/scala-2.9.1.final/misc/scala-tool-support/emacs/")
+(require 'scala-mode-auto)
 
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;; Lisp interaction with SBCL
