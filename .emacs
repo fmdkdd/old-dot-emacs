@@ -430,3 +430,95 @@ Symbols matching the text at point are put first in the completion list."
     (run-at-time duration nil
 					  (lambda ()
 						 (notifications-notify :title "Wake up sleepyhead")))))
+
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;; Mail with Gnus
+
+(setq gnus-directory "~/Miel")
+(require 'offlineimap)
+(add-hook 'gnus-before-startup-hook 'offlineimap)
+
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;; Contacts with org-contacts
+
+;; Org-contacts from contrib
+(load "~/.elisp/org-mode/contrib/lisp/org-contacts.el")
+
+;; My contacts file
+(setq org-contacts-files '("~/Miel/contacts.org"))
+
+;; Google-contacts
+;; (add-to-list 'load-path "~/.elisp/google-contacts")
+;; (require 'google-contacts)
+;; (require 'google-contacts-gnus)
+;; (require 'google-contacts-message)
+
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;; Bibliography management with org-mode and reftex
+;; see https://tincman.wordpress.com/2011/01/04/research-paper-management-with-emacs-org-mode-and-reftex/
+
+(defun org-mode-reftex-setup ()
+  (load-library "reftex")
+  (and (buffer-file-name) (file-exists-p (buffer-file-name))
+       (progn
+			(reftex-parse-all)
+			(reftex-set-cite-format  ; add a custom reftex cite format to
+											 ; insert links
+			 '((?b . "[[bib:%l][%l-bib]]")
+				(?n . "[[notes:%l][%l-notes]]")
+				(?p . "[[papers:%l][%l-paper]]")
+				(?t . "%t")
+				(?h . "** %t\n\t:PROPERTIES:\n\t:Custom_ID: %l\n\t:END:\n\t[[papers:%l][%l-paper]]")))))
+  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+  (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
+
+(add-hook 'org-mode-hook 'org-mode-reftex-setup)
+
+(defun org-mode-reftex-search ()
+  ; jump to the notes for the paper pointed to at from reftex search
+  (interactive)
+  (org-open-link-from-string (format "[[notes:%s]]" (reftex-citation t))))
+
+(setq org-link-abbrev-alist
+		'(("bib" . "~/Archimède/Univ/Cours/MIS10/refs.bib::%s")
+		  ("notes" . "~/Archimède/Univ/Cours/MIS10/notes.org::#%s")
+		  ("papers" . "~/Archimède/Univ/Cours/MIS10/papers/%s.pdf")))
+
+;; Linking to this bibliography when drafting in org-mode
+;; see http://www-public.it-sudparis.eu/~berger_o/weblog/2012/03/23/how-to-manage-and-export-bibliographic-notesrefs-in-org-mode/
+
+(defun my-rtcite-export-handler (path desc format)
+  (message "my-rtcite-export-handler is called : path = %s, desc = %s, format = %s" path desc format)
+  (let* ((search (when (string-match "::#?\\(.+\\)\\'" path)
+                   (match-string 1 path)))
+         (path (substring path 0 (match-beginning 0))))
+    (cond ((eq format 'latex)
+           (if (or (not desc)
+                   (equal 0 (search "rtcite:" desc)))
+               (format "\\cite{%s}" search)
+             (format "\\cite[%s]{%s}" desc search))))))
+
+(require 'org)
+(org-add-link-type "rtcite"
+                   'org-bibtex-open
+                   'my-rtcite-export-handler)
+
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;; ERC
+
+;; Connect to local Bitlbee for MSN / Google Talk / Twitter
+(defun bitlbee-connect ()
+  (interactive)
+  (erc :server "localhost"
+		 :port "6667"
+		 :nick "fmdkdd"))
+
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;; Typing game to annoy your coworkers by banging on your keyboard
+
+(autoload 'typing-of-emacs "typing" "Typing Of Emacs, a game." t)
+
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;; Improve your writing style
+
+(require 'writegood-mode)
