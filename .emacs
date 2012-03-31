@@ -421,9 +421,6 @@ Symbols matching the text at point are put first in the completion list."
 (setq ps-print-header nil
       ps-paper-type 'a4)
 
-;; Fix "Flyspell could not be started" error.
-;; (setq flyspell-issue-welcome-flag nil)
-
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;; Misc
 
