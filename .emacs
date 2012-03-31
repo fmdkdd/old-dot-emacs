@@ -327,7 +327,6 @@ Symbols matching the text at point are put first in the completion list."
   "Hook that gets run on activation of any programming mode."
   (local-column-number-mode)
   (local-comment-auto-fill)
-  (flyspell-prog-mode)
   (abbrev-mode)
   (add-watchwords)
   (electric-indent-mode)
